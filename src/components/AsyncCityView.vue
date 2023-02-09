@@ -31,12 +31,14 @@
         }}
       </p>
       <p class="text-8xl mb-8">
-        {{ Math.round(weatherData.current.temp) }}&deg;
+        {{ Math.round(fahrenheitToCelsius(weatherData.current.temp)) }}&deg;
       </p>
       <div class="text-center">
         <p>
           Feels like
-          {{ Math.round(weatherData.current.feels_like) }}&deg;
+          {{
+            Math.round(fahrenheitToCelsius(weatherData.current.feels_like))
+          }}&deg;
         </p>
         <p class="capitalize">
           {{ weatherData.current.weather[0].description }}
@@ -73,7 +75,9 @@
               :src="`http://openweathermap.org/img/wn/${hourData.weather[0].icon}@2x.png`"
               alt=""
             />
-            <p class="text-xl mb-4">{{ Math.round(hourData.temp) }}&deg;</p>
+            <p class="text-xl mb-4">
+              {{ Math.round(fahrenheitToCelsius(hourData.temp)) }}&deg;
+            </p>
           </div>
         </div>
       </div>
@@ -104,8 +108,8 @@
             alt=""
           />
           <div class="flex gap-2 flex-1 justify-end">
-            <p>H: {{ Math.round(day.temp.max) }}</p>
-            <p>L: {{ Math.round(day.temp.min) }}</p>
+            <p>H: {{ Math.round(fahrenheitToCelsius(day.temp.max)) }}</p>
+            <p>L: {{ Math.round(fahrenheitToCelsius(day.temp.min)) }}</p>
           </div>
         </div>
       </div>
@@ -162,5 +166,9 @@ const removeCity = () => {
   router.push({
     name: "home",
   });
+};
+
+const fahrenheitToCelsius = (temperature) => {
+  return (temperature - 32) * (5 / 9);
 };
 </script>
